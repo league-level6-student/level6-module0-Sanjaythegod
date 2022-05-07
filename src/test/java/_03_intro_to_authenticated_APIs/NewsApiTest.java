@@ -29,25 +29,54 @@ class NewsApiTest {
 
     @BeforeEach
     void setUp() {
-
+            newsApi = new NewsApi();
     }
 
     @Test
     void itShouldGetNewsStoryByTopic() {
         //given
+    ApiExampleWrapper list = newsApi.getNewsStoryByTopic("Russia");
+
+        Article article = list.getArticles().get(0);
+        String articleTitle = article.getTitle();
+
+        //Get the content of the article
+        String articleContent = article.getContent();
+
+        //Get the URL of the article
+        String articleUrl = article.getUrl();
+        String expected = articleTitle + " -\n"
+                + articleContent
+                + "\nFull article: " + articleUrl;
+
 
         //when
 
+
+
         //then
+        assertEquals(list.getStatus(),"ok");
     }
 
     @Test
     void itShouldFindStory(){
         //given
+        ApiExampleWrapper list = newsApi.getNewsStoryByTopic("Russia");
+        Article article = list.getArticles().get(0);
+        String articleTitle = article.getTitle();
 
+        //Get the content of the article
+        String articleContent = article.getContent();
+
+        //Get the URL of the article
+        String articleUrl = article.getUrl();
+        String expected = articleTitle + " -\n"
+                + articleContent
+                + "\nFull article: " + articleUrl;
         //when
-
+String actual = newsApi.findStory("Russia");
         //then
+        assertEquals(actual,expected);
     }
 
 
